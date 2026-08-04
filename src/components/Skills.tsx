@@ -6,18 +6,16 @@ const skills = [
     category: 'Android & Kotlin',
     items: [
       'Jetpack Compose 기반 선언형 UI 개발 및 시계열 차트, GitHub 잔디밭 등 복잡한 컴포넌트 직접 구현',
-      'XML / Jetpack Compose 혼용 환경에서 Compose 중심 구조 개선 경험',
       '멀티 모듈 아키텍처, Clean Architecture, MVVM, MVI 패턴을 활용한 확장 가능한 앱 구조 설계 및 적용 경험',
       'Coroutines 기반 병렬 API 처리(56% 개선), Room 캐싱(85% 개선), Paging3 도입을 통한 앱 성능 개선 경험',
       'JUnit5·MockK 기반 단위 테스트로 ViewModel 비즈니스 로직 검증 경험',
       'Flow, StateFlow 기반 UI 상태 스트림 설계로 화면 상태와 이벤트 흐름 관리 경험',
-      'Extension Functions, Sealed Interface, Generic 활용으로 코드 재사용',
       'Gradle Convention Plugin 기반 build-logic 구축 및 멀티모듈 설정 표준화 경험',
       '오픈소스 UI 라이브러리 개발 및 Maven Central 배포 경험',
     ],
   },
   {
-    category: 'Backend & Front',
+    category: 'Backend & Frontend',
     items: [
       'Spring Boot 기반 REST API 설계 및 계층형 구조로 요청/응답 흐름 구성 경험',
       'MyBatis와 MySQL을 활용한 SQL 매핑, join, pagination, 검색 조건 처리 경험',
@@ -27,9 +25,11 @@ const skills = [
     ],
   },
   {
-    category: 'Agent',
+    category: 'AI Agent',
     items: [
-      'Agent 개발 워크플로우를 적용해 기능 구현, 리팩토링, 테스트 작성, 문서화 과정을 반복 가능하게 정리',
+      'AI Agent 개발 워크플로우를 적용해 기능 구현, 리팩토링, 테스트 작성, 문서화 과정을 반복 가능하게 정리',
+      '독립적으로 수행 가능한 작업을 서브에이전트에 분리·병렬화하고, 결과를 통합 검증해 복잡한 작업의 처리 효율과 품질 향상',
+      'AI Agent 작업을 계획·구현·검증 레이어로 분리하고, 단계별 입력·출력과 검증 기준을 정의해 결과의 일관성 향상',
       '코드베이스 컨텍스트와 컨벤션을 문서화해 AI 도구의 반복 작업 수행 품질 개선',
       '코드 리뷰, 테스트 생성, 리팩토링 후보 탐색 등 반복 개발 작업 자동화',
       '검증 게이트, 자동 테스트, 피드백 루프를 설계해 AI 에이전트 기반 개발 흐름 안정화',
@@ -40,7 +40,6 @@ const skills = [
     items: [
       'JIRA와 GitHub를 활용하여 이슈 관리 및 개발 진행 현황 공유',
       '코드 리뷰를 통한 아키텍처 일관성 유지 및 팀 이해도 동기화',
-      'Ktlint를 도입하여 코드 리뷰에서 발생할 수 있는 불필요한 비용 제거',
     ],
   },
 ]

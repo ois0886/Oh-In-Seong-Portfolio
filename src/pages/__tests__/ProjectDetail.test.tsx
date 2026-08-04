@@ -72,10 +72,10 @@ describe('ProjectDetail', () => {
     renderProjectDetail('pubburi')
 
     expect(
-      screen.getByRole('heading', { level: 1, name: '주점부리 - Backend & Front' }),
+      screen.getByRole('heading', { level: 1, name: '주점부리 - Backend & Frontend' }),
     ).toBeInTheDocument()
     expect(screen.getByText('2025.05')).toBeInTheDocument()
-    expect(screen.getAllByText('Backend & Front 개발')).toHaveLength(2)
+    expect(screen.getAllByText('Backend & Frontend 개발')).toHaveLength(2)
     expect(screen.getByText('상세 조회 쿼리 수 95% 절감')).toBeInTheDocument()
     expect(screen.getByText('95% 절감')).toBeInTheDocument()
     expect(screen.getByText('전체 변경이 rollback')).toBeInTheDocument()
