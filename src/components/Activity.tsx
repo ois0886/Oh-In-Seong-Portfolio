@@ -153,7 +153,7 @@ function ActivityCard({ activity }: { activity: typeof activities[number] }) {
   const [imageOpen, setImageOpen] = useState(false)
 
   return (
-    <div className={styles.card}>
+    <div className={`${styles.card} ${imageOpen ? styles.expanded : ''}`}>
       <div className={styles.cardBody}>
         <div className={styles.cardHeader}>
           <div className={styles.tags}>

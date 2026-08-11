@@ -1,7 +1,7 @@
 .wrapper {
   display: grid;
-  grid-template-columns: minmax(250px, 0.72fr) minmax(0, 1.7fr);
-  gap: 44px;
+  grid-template-columns: minmax(250px, 0.7fr) minmax(0, 1.7fr);
+  gap: 32px;
   align-items: start;
 }
 
@@ -9,34 +9,22 @@
   position: relative;
   display: grid;
   place-items: center;
-  min-height: 380px;
-  padding: 34px;
-  border-radius: 24px;
+  min-height: 368px;
+  padding: 30px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
   background-color: var(--color-surface-strong);
   box-shadow: var(--shadow-card);
 }
 
-.profileArea::after {
-  content: '';
-  position: absolute;
-  right: -14px;
-  bottom: -14px;
-  width: 42%;
-  height: 42%;
-  border-right: 2px solid var(--color-primary);
-  border-bottom: 2px solid var(--color-primary);
-  border-radius: 0 0 24px;
-  pointer-events: none;
-}
-
 .profileImage {
-  width: min(100%, 238px);
+  width: min(100%, 232px);
   aspect-ratio: 4 / 5;
-  border-radius: 18px;
+  border-radius: 14px;
   overflow: hidden;
   background-color: var(--color-bg-secondary);
-  border: 5px solid rgba(255, 254, 250, 0.92);
-  box-shadow: 0 20px 42px rgba(16, 24, 39, 0.28);
+  border: 3px solid rgba(255, 255, 255, 0.86);
+  box-shadow: 0 16px 34px rgba(11, 18, 32, 0.22);
 }
 
 .profileImage img {
@@ -48,37 +36,37 @@
 
 .infoArea {
   min-width: 0;
-  padding: 36px 40px;
+  padding: 32px 36px;
   background-color: var(--color-bg-card);
   border: 1px solid var(--color-border);
-  border-radius: 24px;
+  border-radius: var(--radius-card);
   box-shadow: var(--shadow-card);
 }
 
 .infoBlock {
-  margin-bottom: 36px;
+  margin-bottom: 32px;
 }
 
 .infoBlock:last-child {
   margin-bottom: 0;
-  padding-top: 30px;
+  padding-top: 28px;
   border-top: 1px solid var(--color-border);
 }
 
 .subtitle {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   font-size: var(--font-size-subtitle);
-  font-weight: 800;
-  margin-bottom: 20px;
+  font-weight: 750;
+  margin-bottom: 18px;
   color: var(--color-primary-strong);
 }
 
 .subtitle::before {
   content: '';
-  width: 28px;
-  height: 4px;
+  width: 22px;
+  height: 3px;
   border-radius: 999px;
   background-color: var(--color-primary);
 }
@@ -112,7 +100,7 @@
 }
 
 .label {
-  font-weight: 700;
+  font-weight: 680;
   color: var(--color-text);
 }
 
@@ -143,18 +131,18 @@
 
 .emphasis {
   color: var(--color-text);
-  font-weight: 750;
+  font-weight: 700;
 }
 
 @media (max-width: 820px) {
   .wrapper {
     grid-template-columns: 1fr;
-    gap: 28px;
+    gap: 24px;
   }
 
   .profileArea {
     min-height: 0;
-    padding: 30px;
+    padding: 28px;
   }
 
   .profileImage {
@@ -164,12 +152,7 @@
 
 @media (max-width: 520px) {
   .profileArea {
-    border-radius: 18px;
-  }
-
-  .profileArea::after {
-    right: -7px;
-    bottom: -7px;
+    border-radius: 16px;
   }
 
   .profileImage {
@@ -178,7 +161,7 @@
 
   .infoArea {
     padding: 28px 22px;
-    border-radius: 18px;
+    border-radius: 16px;
   }
 
   .infoList li {

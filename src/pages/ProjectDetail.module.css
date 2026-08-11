@@ -1,6 +1,6 @@
 .page {
   min-height: 100vh;
-  padding: 40px 32px 88px;
+  padding: 32px 32px 84px;
   overflow-x: hidden;
   background-color: var(--color-bg-secondary);
 }
@@ -12,36 +12,13 @@
 
 .hero {
   position: relative;
-  padding: 48px 52px 50px;
+  padding: 44px 48px 46px;
   overflow: hidden;
-  border-radius: 26px;
+  border: 1px solid var(--color-border);
+  border-radius: 18px;
   color: var(--color-on-surface-strong);
   background-color: var(--color-surface-strong);
-  box-shadow: var(--shadow-card-hover);
-}
-
-.hero::before,
-.hero::after {
-  content: '';
-  position: absolute;
-  pointer-events: none;
-}
-
-.hero::before {
-  top: 0;
-  right: 0;
-  width: 30%;
-  height: 10px;
-  background-color: var(--color-accent);
-}
-
-.hero::after {
-  right: -95px;
-  bottom: -150px;
-  width: 370px;
-  height: 370px;
-  border: 1px solid rgba(255, 254, 250, 0.16);
-  border-radius: 50%;
+  box-shadow: var(--shadow-card);
 }
 
 .backLink {
@@ -50,13 +27,13 @@
   display: inline-flex;
   align-items: center;
   min-height: 40px;
-  margin-bottom: 32px;
+  margin-bottom: 30px;
   padding: 7px 14px;
   border: 1px solid rgba(255, 254, 250, 0.34);
-  border-radius: 999px;
+  border-radius: var(--radius-control);
   color: var(--color-on-surface-strong);
   font-size: 0.88rem;
-  font-weight: 700;
+  font-weight: 680;
   transition: background-color 0.2s, transform 0.2s;
 }
 
@@ -89,10 +66,10 @@
   max-width: 900px;
   margin-bottom: 16px;
   color: var(--color-on-surface-strong);
-  font-size: clamp(2.25rem, 5vw, 4.2rem);
-  font-weight: 850;
-  letter-spacing: -0.05em;
-  line-height: 1.08;
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  font-weight: 750;
+  letter-spacing: -0.045em;
+  line-height: 1.1;
 }
 
 .descriptionText {
@@ -101,9 +78,9 @@
   max-width: 840px;
   margin-bottom: 30px;
   color: var(--color-on-surface-strong);
-  font-size: 1.05rem;
-  line-height: 1.75;
-  opacity: 0.82;
+  font-size: 1.02rem;
+  line-height: 1.72;
+  opacity: 0.86;
 }
 
 .meta {
@@ -122,7 +99,7 @@
   min-width: 0;
   padding: 13px 14px;
   border: 1px solid rgba(255, 254, 250, 0.18);
-  border-radius: 12px;
+  border-radius: 10px;
   color: var(--color-on-surface-strong);
   background-color: rgba(255, 254, 250, 0.07);
   font-size: 0.88rem;
@@ -133,7 +110,7 @@
   flex-shrink: 0;
   color: var(--color-on-surface-strong);
   font-size: 0.76rem;
-  font-weight: 800;
+  font-weight: 720;
   opacity: 0.68;
 }
 
@@ -158,14 +135,14 @@
 .content {
   display: flex;
   flex-direction: column;
-  gap: 22px;
-  width: min(100%, 980px);
-  margin: 36px auto 0;
+  gap: 18px;
+  width: min(100%, 1000px);
+  margin: 28px auto 0;
 }
 
 .section {
   margin: 0;
-  padding: 30px 34px;
+  padding: 28px 32px;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-card);
   background-color: var(--color-bg-card);
@@ -174,12 +151,12 @@
 
 .sectionTitle {
   position: relative;
-  margin-bottom: 20px;
-  padding: 0 0 14px 20px;
+  margin-bottom: 18px;
+  padding: 0 0 14px;
   border-bottom: 1px solid var(--color-border);
   color: var(--color-primary-strong);
-  font-size: 1.3rem;
-  font-weight: 820;
+  font-size: 1.24rem;
+  font-weight: 750;
   letter-spacing: -0.025em;
 }
 
@@ -187,9 +164,9 @@
   content: '';
   position: absolute;
   left: 0;
-  top: 0.17em;
-  width: 5px;
-  height: 1.05em;
+  bottom: -1px;
+  width: 36px;
+  height: 2px;
   border-radius: 999px;
   background-color: var(--color-primary);
 }
@@ -221,16 +198,18 @@
 
 .emphasis {
   color: var(--color-text);
-  font-weight: 750;
+  font-weight: 700;
 }
 
 .psGroup {
   position: relative;
-  margin-bottom: 30px;
-  padding: 20px;
-  border: 1px solid var(--color-border);
-  border-radius: 14px;
-  background-color: var(--color-bg);
+  margin-bottom: 28px;
+  padding: 4px 0 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.psGroup:first-of-type {
+  border-top: 0;
 }
 
 .psGroup:last-child {
@@ -241,26 +220,24 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 38px;
-  min-height: 38px;
-  margin-bottom: 14px;
-  border-radius: 10px;
+  min-width: 34px;
+  min-height: 34px;
+  margin: 18px 0 4px;
+  border-radius: 8px;
   color: var(--color-on-primary);
   background-color: var(--color-primary-dark);
   font-size: 1rem;
-  font-weight: 800;
+  font-weight: 750;
 }
 
 .psBlock {
-  padding: 18px 20px;
-  margin-bottom: 12px;
-  border: 1px solid var(--color-border);
-  border-radius: 12px;
-  background-color: var(--color-bg-card);
+  padding: 18px 0;
+  margin-bottom: 0;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .psBlock:last-child {
-  margin-bottom: 0;
+  border-bottom: 0;
 }
 
 .psLabel {
@@ -270,16 +247,15 @@
   margin-bottom: 12px;
   color: var(--color-primary-strong);
   font-size: 0.94rem;
-  font-weight: 800;
+  font-weight: 720;
 }
 
 .psLabel::before {
   content: '';
-  width: 8px;
-  height: 8px;
-  border-radius: 2px;
+  width: 16px;
+  height: 2px;
+  border-radius: 999px;
   background-color: var(--color-primary);
-  transform: rotate(45deg);
 }
 
 .links {
@@ -294,17 +270,17 @@
   justify-content: center;
   min-height: 44px;
   padding: 9px 18px;
-  border-radius: 999px;
+  border-radius: var(--radius-control);
   color: var(--color-on-surface-strong);
   background-color: var(--color-surface-strong);
   font-size: 0.88rem;
-  font-weight: 700;
+  font-weight: 680;
   transition: transform 0.2s, opacity 0.2s;
 }
 
 .linkBtn:hover {
   opacity: 0.86;
-  transform: translateY(-2px);
+  transform: translateY(-1px);
 }
 
 .insightLink {
@@ -338,7 +314,7 @@
   padding: 14px 16px;
   border: 1px solid var(--color-border);
   border-left: 4px solid var(--color-primary);
-  border-radius: 0 10px 10px 0;
+  border-radius: 0 8px 8px 0;
   color: var(--color-text-secondary);
   background-color: var(--color-bg-secondary);
   font-size: 0.94rem;
@@ -372,9 +348,9 @@
 .screenshotWrap {
   overflow: hidden;
   border: 1px solid var(--color-border);
-  border-radius: 12px;
+  border-radius: 10px;
   background-color: var(--color-bg-secondary);
-  box-shadow: 0 12px 28px rgba(38, 54, 79, 0.08);
+  box-shadow: 0 8px 22px rgba(15, 23, 42, 0.07);
 }
 
 .screenshot {
@@ -389,7 +365,7 @@
   }
 
   .hero {
-    padding: 40px 34px;
+    padding: 38px 32px;
   }
 
   .meta {
@@ -404,7 +380,7 @@
 
   .hero {
     padding: 30px 20px 32px;
-    border-radius: 18px;
+    border-radius: 16px;
   }
 
   .backLink {
@@ -413,7 +389,7 @@
   }
 
   .title {
-    font-size: 2.05rem;
+    font-size: 2rem;
   }
 
   .descriptionText {
@@ -434,11 +410,11 @@
   }
 
   .psGroup {
-    padding: 12px;
+    padding: 4px 0 0;
   }
 
   .psBlock {
-    padding: 16px 14px;
+    padding: 16px 0;
   }
 
   .screenshotRow {

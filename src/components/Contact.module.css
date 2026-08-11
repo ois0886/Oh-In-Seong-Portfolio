@@ -1,41 +1,18 @@
 .panel {
   position: relative;
-  padding: 54px 58px;
+  padding: 48px 50px;
   overflow: hidden;
-  border-radius: 24px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
   color: var(--color-on-surface-strong);
   background-color: var(--color-surface-strong);
-  box-shadow: var(--shadow-card-hover);
-}
-
-.panel::before,
-.panel::after {
-  content: '';
-  position: absolute;
-  pointer-events: none;
-}
-
-.panel::before {
-  top: 0;
-  right: 0;
-  width: 28%;
-  height: 10px;
-  background-color: var(--color-accent);
-}
-
-.panel::after {
-  right: -70px;
-  bottom: -110px;
-  width: 280px;
-  height: 280px;
-  border: 1px solid rgba(255, 254, 250, 0.18);
-  border-radius: 50%;
+  box-shadow: var(--shadow-card);
 }
 
 .panel :global(.section__title) {
   position: relative;
   z-index: 1;
-  margin-bottom: 28px;
+  margin-bottom: 26px;
   color: var(--color-on-surface-strong);
 }
 
@@ -69,22 +46,22 @@
   min-height: 46px;
   padding: 10px 22px;
   border: 1px solid rgba(255, 254, 250, 0.45);
-  border-radius: 999px;
+  border-radius: var(--radius-control);
   color: var(--color-on-surface-strong);
-  font-weight: 750;
+  font-weight: 700;
   transition: color 0.2s, background-color 0.2s, transform 0.2s;
 }
 
 .link:hover {
   color: var(--color-surface-strong);
   background-color: var(--color-on-surface-strong);
-  transform: translateY(-2px);
+  transform: translateY(-1px);
 }
 
 @media (max-width: 640px) {
   .panel {
     padding: 40px 24px;
-    border-radius: 18px;
+    border-radius: 16px;
   }
 
   .links {

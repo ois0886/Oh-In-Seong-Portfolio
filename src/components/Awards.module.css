@@ -5,13 +5,13 @@
   margin-bottom: 18px;
   color: var(--color-primary-strong);
   font-size: 1.2rem;
-  font-weight: 800;
+  font-weight: 750;
 }
 
 .groupTitle::before {
   content: '';
-  width: 28px;
-  height: 4px;
+  width: 22px;
+  height: 3px;
   border-radius: 999px;
   background-color: var(--color-primary);
 }
@@ -23,12 +23,13 @@
 .list {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 18px;
+  gap: 20px;
 }
 
 .card {
   position: relative;
-  padding: 26px;
+  height: 100%;
+  padding: 26px 28px;
   overflow: hidden;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-card);
@@ -37,20 +38,10 @@
   transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
 }
 
-.card::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 60px;
-  height: 5px;
-  background-color: var(--color-primary);
-}
-
 .card:hover {
   border-color: var(--color-border-strong);
   box-shadow: var(--shadow-card-hover);
-  transform: translateY(-3px);
+  transform: translateY(-2px);
 }
 
 .cardInner {
@@ -68,7 +59,7 @@
 .title {
   color: var(--color-primary-strong);
   font-size: 1.1rem;
-  font-weight: 800;
+  font-weight: 750;
   line-height: 1.45;
 }
 
@@ -150,7 +141,7 @@
   margin-top: 16px;
   overflow: auto;
   border: 1px solid var(--color-border);
-  border-radius: 12px;
+  border-radius: 10px;
   background-color: var(--color-bg-secondary);
 }
 
