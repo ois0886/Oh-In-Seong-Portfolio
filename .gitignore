@@ -5,6 +5,9 @@ node_modules
 dist
 dist-ssr
 
+# Temporary browser profiles
+tmp/pdfs/chrome-profile/
+
 # Logs
 logs
 *.log
