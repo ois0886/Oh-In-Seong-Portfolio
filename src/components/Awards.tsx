@@ -48,6 +48,13 @@ const certificates = [
     id: 'ADsP-043007180',
     image: 'screenshot/ADSP.png',
   },
+  {
+    title: '한국사능력검정시험 3급',
+    date: '2021.11.05',
+    org: '국사편찬위원회',
+    id: '56-336465',
+    image: 'screenshot/korean-history-certificate.png',
+  },
 ]
 
 function AwardCard({ item, toggleLabel }: { item: typeof awards[number]; toggleLabel: [string, string] }) {
