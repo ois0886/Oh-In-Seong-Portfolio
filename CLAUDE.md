@@ -1,6 +1,7 @@
 # CLAUDE.md
 
 이 파일은 Claude Code가 이 프로젝트를 다룰 때 참고하는 가이드입니다.
+`CLAUDE.md`와 `AGENTS.md`는 제목/첫 문장만 다른 동일 문서이므로, 한쪽을 고치면 다른 쪽도 같이 갱신합니다.
 
 ## 프로젝트 개요
 
@@ -9,39 +10,46 @@
 ## 기술 스택
 
 - React 19
-- TypeScript
-- Vite
+- TypeScript 5.9
+- Vite 7
 - CSS Modules
-- React Router (HashRouter — GitHub Pages 호환)
-- react-syntax-highlighter (Kotlin 코드 하이라이팅)
+- React Router v7 (HashRouter — GitHub Pages 호환)
+- react-syntax-highlighter (PrismLight — kotlin / java / xml(markup) / sql)
+- Vitest + React Testing Library + jsdom
 
 ## 프로젝트 구조
 
 ```
 src/
   components/       # 페이지 섹션 컴포넌트 (각 컴포넌트별 .tsx + .module.css)
-    Header          # 고정 헤더 (섹션 네비게이션 + 다크모드 토글)
-    About           # 프로필 사진 + 기본 정보 + 자기소개
-    Career          # 경력 (ChartLab) + 총 경력 자동 계산
-    Skills          # 기술 스택 (Android & Kotlin, React & TypeScript, Communication)
+    Header          # 고정 헤더 (섹션 네비게이션 + 모바일 드로어 + 다크모드 토글)
+    About           # 프로필 사진 + 기본 정보(Email/GitHub/Blog/LinkedIn) + 자기소개
+    Career          # 경력 (차트연구소) + 총 경력 자동 계산
+    Skills          # 기술 스택 (Android & Kotlin, Backend & Frontend, AI Agent, Communication)
     Education       # 교육 이력 (SSAFY, 코드프레소, 한성대) + GPA + 주요 과목 성적
-    Awards          # 수상 및 자격증 (이미지 토글)
+    Awards          # 수상 2건 + 자격증 5건 (이미지 토글)
     Activity        # 활동 이력 (스터디, 발표, 멘토링 등 — 사진 토글)
-    Blog            # 블로그 소개 및 시리즈
-    Projects        # 프로젝트 카드 (클릭 시 상세 페이지 이동)
+    Blog            # 블로그 소개 및 시리즈 (Android / Kotlin / CS)
+    Projects        # 프로젝트 카드 (클릭 시 상세 페이지 이동 + 스크롤 위치 저장)
     OpenSource      # 오픈소스 프로젝트 (Projects와 별도 섹션)
     Contact         # 연락처
     Footer          # 푸터
-    WaveDivider     # 섹션 간 웨이브 구분선 SVG 컴포넌트
+    careerUtils.ts  # 경력 데이터(careers) + 총 경력 계산(getTotalCareer)
+    __tests__/      # Career, Header, OpenSource, Projects 테스트
   data/
     projects.ts     # 프로젝트 데이터 (목록 + 상세 페이지 공유)
+    __tests__/      # projects 데이터 검증 테스트
   hooks/
     useScrollReveal # 스크롤 시 reveal 애니메이션 훅
+    __tests__/
   pages/
-    ProjectDetail   # 프로젝트 상세 페이지 (Kotlin 구문 강조 포함)
+    ProjectDetail   # 프로젝트 상세 페이지 (구문 강조 포함)
+    __tests__/
   styles/
-    global.css      # CSS 변수, 글로벌 스타일, 다크모드 변수, 웨이브/섹션 교차 스타일
-  App.tsx           # 라우팅 설정 + 섹션 교차 배경 (Section 래퍼)
+    global.css      # CSS 변수, 글로벌 스타일, 다크모드 변수, 섹션 교차 스타일
+  test/
+    setup.ts        # Vitest 셋업 (jest-dom)
+  App.tsx           # 라우팅 + 섹션 교차 배경(Section 래퍼) + 스크롤 복원(ScrollToTop)
   main.tsx          # 엔트리 포인트 (HashRouter)
 public/
   screenshot/       # 이미지 파일 (프로필, 수상증, 자격증, 활동 사진, 프로젝트 스크린샷)
@@ -50,76 +58,97 @@ public/
 ## 라우팅
 
 - `/#/` — 홈 (포트폴리오 메인)
-- `/#/projects/:id` — 프로젝트 상세 페이지 (진입 시 스크롤 최상단 이동)
+- `/#/projects/:id` — 프로젝트 상세 페이지
+
+스크롤 동작(`App.tsx`의 `ScrollToTop`)
+- 상세 페이지 진입 시 애니메이션 없이 최상단으로 이동
+- 홈 복귀 시 `sessionStorage.scrollY`로 이전 스크롤 위치 복원하며, reveal 요소는 즉시 `revealed` 처리
+- 상세 페이지의 뒤로가기는 `location.state.fromPortfolio` → `history.length` → `/` 순으로 판단
 
 ## 섹션 순서 (홈)
 
 Header → About → Career(alt) → Skills → Education(alt) → Awards → Activity(alt) → Blog → Projects(alt) → OpenSource → Contact(alt) → Footer
 
-(alt) = 교차 배경 + 웨이브 구분선 적용 섹션
+(alt) = `sectionAlt` 교차 배경 적용 섹션
 
 ## 테마
 
-- **라이트 모드**: Slate/Gray 계열 (#475569), 배경 #f9fafb, 보조배경 #f1f5f9
-- **다크 모드**: Slate 밝은 톤 (#94a3b8), 배경 #0f172a
+- **라이트 모드**: 스틸 블루 계열 (`--color-primary: #46627f`), 배경 `#f6f7f9`, 보조배경 `#eef2f6`, 카드 `#ffffff`
+- **다크 모드**: 밝은 블루그레이 (`--color-primary: #9cb3c9`), 배경 `#0b1220`, 보조배경 `#111b2b`, 카드 `#162235`
 - CSS 변수 기반 (`[data-theme='dark']`) — localStorage에 테마 저장
-- 헤더에 다크모드 토글 버튼 (해/달 이모지)
-- 섹션 교차 배경 (`sectionAlt` 클래스) + WaveDivider SVG
-
-## 차별화 요소
-
-- **웨이브 구분선**: 섹션 간 물결 모양 SVG 전환
-- **Kotlin 구문 강조**: 프로젝트 상세의 구현 설명에 PrismLight 코드 하이라이팅
+- 헤더에 다크모드 토글 버튼
+- 섹션 교차 배경 (`sectionAlt` 클래스)
+- `prefers-reduced-motion: reduce` 대응, 스크롤 복원 시 `no-transition` 클래스로 깜빡임 방지
 
 ## 프로젝트 데이터 구조 (projects.ts)
 
-- `Project` 인터페이스: id, title, description, thumbnail, tech, period, team, role, details, features, contributions, problemSolvings[], insights[], insightImages?[], achievements, retrospective, links, screenshots, screenshotColumns?
-- `ProblemSolving` 인터페이스: problem[], solution[], result[], implementation[], alternatives[] — 각 문제해결 블록이 독립적
-- `ImplementationBlock` 인터페이스: description, code (Kotlin 코드 또는 null)
-- 여러 개의 문제해결 블록 지원 (2개 이상일 경우 번호 표시)
+- `Project`: id, title, description, thumbnail, tech, period, team, role, details, features, contributions, problemSolvings[], insights[], insightImages?[], achievements, retrospective, links, screenshots, screenshotColumns?, hasBottomScreenshot?
+- `ProblemSolving`: problem[], solution[], result[], implementation[], alternatives[] — 각 문제해결 블록이 독립적
+- `ImplementationBlock`: description, code (문자열 또는 null), language?(`kotlin` | `java` | `xml` | `sql` | `text`, 기본 kotlin)
+- `RichText = string | TextSegment[]` — 문장 일부를 강조하려면 `rich('앞부분 ', strong('강조'), ' 뒷부분')` 헬퍼 사용
+- 문제해결 블록이 2개 이상이면 상세 페이지에 번호 표시
 - `screenshotColumns`: 스크린샷 그리드 열 수 (기본 2, 3열도 지원)
+- `hasBottomScreenshot`: 기본 true — 스크린샷이 2장 이상이면 마지막 1장을 하단에 단독 배치, `false`면 전부 상단 그리드에 포함
 - `insights`: 프로젝트 관련 블로그 포스트 링크 목록
 - `insightImages`: Insights 섹션 아래에 표시할 추가 이미지 배열 (선택)
 
 ## 프로젝트 상세 페이지 구조
 
-스크린샷(앞 N-1장) → 프로젝트 개요 → 주요 요구사항 → 링크 → Project Insights(+ insightImage) → 담당 역할 및 기여 → 문제 해결(문제/해결/결과/구현 설명/대체안, 복수 블록 시 번호 구분) → 성과 및 결과 → 프로젝트 회고 → 스크린샷(마지막 1장)
+헤더(제목·설명·기간/인원/역할·기술 태그) → 성과 및 결과 → 링크 → 프로젝트 개요 → 주요 요구사항 → Project Insights(+ insightImages) → 담당 역할 및 기여 → 문제 해결(문제/해결 방법/결과/구체적인 구현 설명/대체안, 복수 블록 시 번호 구분) → 스크린샷(첫 장 전체 폭 + 나머지 그리드 + 마지막 1장 단독) → 프로젝트 회고
+
+내용이 비어 있는 섹션은 렌더링하지 않습니다.
 
 ## 등록된 프로젝트
 
-- **내눈 키오스크** (naenun-kiosk): 스크린샷 8장(2열), 문제해결 1개
-- **모리, Mo-Re** (mo-re): 스크린샷 14장(3열), 문제해결 2개, Insights 7개
-- **Glim** (glim): 스크린샷 8장(3열), 문제해결 3개, Insights 6개
-- **Quiz Cafe** (quiz-cafe): 스크린샷 1장, 문제해결 2개, Insights 6개
-- **Didimdol** (didimdol): 스크린샷 2장, 문제해결 1개, Insights 5개
-- **Bong #** (bong): 스크린샷 8장(2열), 문제해결 1개, Insights 8개, insightImages 1장
-- **POCS** (pocs): 스크린샷 4장(3열), 문제해결 2개, Insights 6개, insightImages 2장, Play Store 배포
+| id | 이름 | 스크린샷 | 문제해결 | Insights | 비고 |
+|----|------|----------|----------|----------|------|
+| `naenun-kiosk` | 내눈 키오스크 | 8장(2열) | 3 | - | Figma |
+| `mo-re` | 모리, Mo-Re | 14장(3열) | 2 | 7 | Figma |
+| `glim` | Glim | 8장(3열) | 3 | 6 | GitHub, Figma |
+| `pubburi` | 주점부리 | 3장(2열) | 2 | - | Backend & Frontend 프로젝트, GitHub |
+| `quiz-cafe` | Quiz Cafe | 1장 | 2 | 6 | GitHub, Figma |
+| `didimdol` | Didimdol | 2장 | 2 | 5 | Android |
+| `bong` | Bong # | 8장(2열) | 2 | 8 | insightImages 1장 |
+| `pocs` | POCS | 4장(3열) | 2 | 6 | insightImages 2장, Play Store 배포 |
 
 ## 등록된 오픈소스
 
-- **Compose-Chart**: Compose Canvas API 기반 6종 차트 UI 라이브러리 (카드 클릭 → GitHub 이동)
-- **Compose-Git-Grass**: GitHub 잔디 Compose UI 라이브러리 (카드 클릭 → GitHub 이동)
+- **Compose-Chart**: Canvas API 기반 6종 차트(Line·Bar·Donut·Pie·Gauge·Radar) Compose 라이브러리 · Maven Central 배포
+- **Compose-Git-Grass**: GitHub 잔디(contribution graph) Compose UI 라이브러리 · Maven Central 배포
+
+두 카드 모두 클릭 시 GitHub 저장소로 이동합니다.
 
 ## 개발 명령어
 
 - `npm run dev` — 개발 서버 실행
-- `npm run build` — 프로덕션 빌드 (tsc + vite build)
-- `npm run test` — Vitest 테스트 실행
+- `npm run build` — 프로덕션 빌드 (tsc -b + vite build)
+- `npm run test` — Vitest 1회 실행
+- `npm run test:watch` — Vitest 워치 모드
 - `npm run lint` — ESLint 실행
 - `npm run preview` — 빌드 결과 미리보기
 
 ## 배포
 
-- GitHub Pages로 배포 (GitHub Actions 자동 배포)
+- GitHub Pages로 배포 (GitHub Actions 자동 배포, `.github/workflows/deploy.yml`)
 - URL: https://ois0886.github.io/AboutMe/
-- `main` 브랜치에 push하면 자동으로 빌드 및 배포
+- `main` 브랜치에 push하면 `npm ci` → `npm run test` → `npm run build` 후 자동 배포 (테스트 실패 시 배포 중단)
+- `vite.config.ts`의 `base: '/AboutMe/'` 설정 필수
+
+## 콘텐츠 싱크 규칙
+
+- 콘텐츠 기준(Parent)은 웹 포트폴리오(`src/`, `public/`)입니다.
+- 정적 문서(`portfolio.html`/`portfolio.pdf`, `resume.html`/`resume.pdf`, `career-document/`)는 Child이며, Parent에 없는 내용을 담을 수 없습니다.
+- HTML 문서를 수정하면 대응 PDF도 함께 재생성합니다.
+- 자세한 내용은 `README.md`의 Content Sync Rule 참고.
 
 ## 코딩 컨벤션
 
 - 컴포넌트: 함수형 컴포넌트 + default export
-- 스타일: CSS Modules (*.module.css) 사용
+- 스타일: CSS Modules (*.module.css), 색상·간격은 `global.css`의 CSS 변수 사용
 - 언어: 한국어 콘텐츠, 영어 코드
-- 들여쓰기: 2 spaces
-- 카드 스타일: border + border-radius: 12px + box-shadow + hover 효과 통일
+- 들여쓰기: 2 spaces, 세미콜론 없음, 작은따옴표
+- 카드 스타일: border + `--radius-card` + `--shadow-card` + hover 효과 통일
 - 이미지 토글: useState + 토글 버튼 패턴 (Activity, Awards에서 공통 사용)
+- 섹션 컴포넌트는 `useScrollReveal` 훅 + `section reveal` 클래스 사용
 - 번들 최적화: react-syntax-highlighter를 manualChunks로 분리
+- 데이터/컴포넌트를 변경하면 `src/**/__tests__`의 관련 테스트도 함께 갱신
