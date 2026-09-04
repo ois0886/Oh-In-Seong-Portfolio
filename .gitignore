@@ -31,7 +31,6 @@ pnpm-debug.log*
 *.sln
 *.sw?
 
-# Claude
-AGENTS.md
+# AI assistant configuration
 CLAUDE.md
 Debate.md
