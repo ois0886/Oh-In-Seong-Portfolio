@@ -5,7 +5,7 @@ const educations = [
   {
     title: '삼성 청년 AI·SW 아카데미 13기',
     subtitle: 'Mobile Track',
-    period: '2025.01 ~ 2025.12',
+    period: '2025.01.20 ~ 2025.12.11',
     details: [
       '삼성전자 주관 1년 과정 소프트웨어 개발자 양성 교육 프로그램',
       '1학기 학습 과정에서 Java, SpringBoot, Vue.js, Html, CSS, Javascript, Flutter, Kotlin, Android 강의 수강 및 학습',
