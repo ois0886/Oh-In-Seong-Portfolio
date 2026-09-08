@@ -17,12 +17,6 @@
   transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
 }
 
-.card:last-child:nth-child(odd) {
-  grid-column: 1 / -1;
-  justify-self: center;
-  width: calc((100% - 20px) / 2);
-}
-
 .expanded {
   grid-column: 1 / -1;
   width: 100%;
@@ -239,10 +233,6 @@
     grid-column: auto;
   }
 
-  .card:last-child:nth-child(odd) {
-    width: 100%;
-    grid-column: auto;
-  }
 }
 
 @media (max-width: 520px) {

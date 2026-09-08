@@ -11,6 +11,15 @@ const educations = [
       '1학기 학습 과정에서 Java, SpringBoot, Vue.js, Html, CSS, Javascript, Flutter, Kotlin, Android 강의 수강 및 학습',
       '2학기 프로젝트 과정에서 팀 프로젝트 기반 서비스 기획·개발·발표 경험',
       '전현직 개발자 멘토링 및 프로젝트 프로세스 경험',
+      'CS·Android 스터디 주최 및 운영 (2025.02 ~ 2025.06)',
+    ],
+    links: [
+      { label: 'GitHub', url: 'https://github.com/Kotlin-Android-Study-with-SSAFY' },
+      { label: 'DeadLock(교착상태)', url: 'https://superohinsung.tistory.com/73' },
+      { label: 'Jetpack Compose Recomposition', url: 'https://superohinsung.tistory.com/380' },
+      { label: '인텐트 및 인텐트 필터', url: 'https://superohinsung.tistory.com/100' },
+      { label: '고정 소수점 vs 부동 소수점', url: 'https://superohinsung.tistory.com/378' },
+      { label: 'Gson vs Moshi vs kotlinx.serialization', url: 'https://superohinsung.tistory.com/399' },
     ],
     gpa: '',
     courses: [] as { name: string; grade: string }[],
@@ -22,6 +31,7 @@ const educations = [
     details: [
       'Java, SQL, Spring Boot, Git 등 웹 개발 기초 비대면 교육 프로그램 이수',
     ],
+    links: [],
     gpa: '',
     courses: [] as { name: string; grade: string }[],
   },
@@ -32,6 +42,7 @@ const educations = [
     details: [
       '모바일소프트웨어 트랙 / 빅데이터 트랙',
     ],
+    links: [],
     gpa: '3.18 / 4.5',
     courses: [
       { name: '데이터 마이닝', grade: 'A+' },
@@ -71,6 +82,21 @@ function Education() {
                 <li key={detail} className={styles.detail}>{detail}</li>
               ))}
             </ul>
+            {edu.links.length > 0 && (
+              <div className={styles.links}>
+                {edu.links.map((link) => (
+                  <a
+                    key={link.url}
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.link}
+                  >
+                    {link.label}
+                  </a>
+                ))}
+              </div>
+            )}
             {edu.gpa && (
               <div className={styles.gpa}>
                 <span className={styles.gpaLabel}>GPA</span>

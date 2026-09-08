@@ -1,8 +1,9 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, within } from '@testing-library/react'
 import { readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import Activity from '../Activity'
 import Career from '../Career'
+import Education from '../Education'
 import { careers, getTotalCareer } from '../careerUtils'
 
 const normalizeText = (text: string) => text.replace(/\s+/g, ' ').trim()
@@ -51,20 +52,55 @@ describe('Activity', () => {
     ).toBeInTheDocument()
   })
 
-  it('한성대학교 산학 협력 프로젝트가 Activity에 렌더링된다', () => {
+  it('알고리즘 스터디와 산학 협력 프로젝트가 DC&M 활동 안에 표시된다', () => {
     render(<Activity />)
 
-    expect(
-      screen.getByRole('heading', {
-        level: 3,
-        name: '한성대학교 산학 협력 프로젝트',
-      }),
-    ).toBeInTheDocument()
-    expect(
-      screen.getByText('(주)PickNumber와 한성대학교 DC&M 동아리 산학 협력 프로젝트 - 전국 업체 예약 및 위치 서비스 제공 앱'),
-    ).toBeInTheDocument()
+    const heading = screen.getByRole('heading', {
+      level: 3,
+      name: '한성대학교 교내 전공동아리 DC&M',
+    })
+    const card = within(heading.parentElement!)
+
+    expect(card.getByText('알고리즘 스터디 주최 및 활동 (2023.06 ~ 2023.12)')).toBeInTheDocument()
+    expect(card.getByText('(주)PickNumber 산학 협력 프로젝트 참여 — 전국 업체 예약 및 위치 서비스 앱 개발 (2023.01 ~ 2023.06)')).toBeInTheDocument()
+    expect(card.getAllByRole('link').map((link) => link.getAttribute('href'))).toEqual([
+      'https://superohinsung.tistory.com/198',
+      'https://superohinsung.tistory.com/186',
+      'https://superohinsung.tistory.com/162',
+      'https://superohinsung.tistory.com/145',
+    ])
+    expect(screen.queryByRole('heading', { name: '한성대학교 산학 협력 프로젝트' })).not.toBeInTheDocument()
+    expect(screen.queryByRole('heading', { name: '한성대학교 교내 전공 동아리 알고리즘 스터디 주최' })).not.toBeInTheDocument()
   })
 
+  it('동계 프로그래밍 캠프 두 항목을 웹과 이력서에서 제거한다', () => {
+    render(<Activity />)
+
+    expect(screen.queryByText(/동계 프로그래밍 캠프/)).not.toBeInTheDocument()
+    expect(readFileSync(resolve(process.cwd(), 'resume.html'), 'utf8')).not.toContain('동계 프로그래밍 캠프')
+    expect(screen.getAllByRole('heading', { level: 3 })).toHaveLength(6)
+  })
+})
+
+describe('Education', () => {
+  it('SSAFY 스터디 내용과 링크를 교육 이력으로 옮기고 독립 활동 카드를 제거한다', () => {
+    render(<><Education /><Activity /></>)
+
+    const study = screen.getByText('CS·Android 스터디 주최 및 운영 (2025.02 ~ 2025.06)')
+    const education = within(study.closest('section')!)
+
+    expect(study.closest('section')).toHaveAttribute('id', 'education')
+    expect(education.getByRole('heading', { level: 3, name: /삼성 청년 AI·SW 아카데미 13기/ })).toBeInTheDocument()
+    expect(education.getAllByRole('link').map((link) => link.getAttribute('href'))).toEqual([
+      'https://github.com/Kotlin-Android-Study-with-SSAFY',
+      'https://superohinsung.tistory.com/73',
+      'https://superohinsung.tistory.com/380',
+      'https://superohinsung.tistory.com/100',
+      'https://superohinsung.tistory.com/378',
+      'https://superohinsung.tistory.com/399',
+    ])
+    expect(screen.queryByRole('heading', { name: 'SSAFY 13기 CS, Android 스터디 주최 및 운영' })).not.toBeInTheDocument()
+  })
 })
 
 describe('getTotalCareer', () => {
