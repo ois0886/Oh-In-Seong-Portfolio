@@ -30,7 +30,7 @@ describe('Career', () => {
 
     expect(resumeTasks).toEqual(careers[0].tasks.map(normalizeText))
     expect(resumeDocument.querySelector('[data-career-id="chartlab"]')?.closest('section')?.textContent)
-      .toContain('총 경력 6개월')
+      .toContain('총 경력 7개월')
   })
 
   it('경력 문구에 설명 없이 사용되는 내부 용어가 없다', () => {
